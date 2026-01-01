@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Page Not Found — Hebu Media</title>
+
+  <style>
+    :root {
+      --sage: #8fae7a;
+      --deep-sage: #5f7f55;
+      --linen: #f7f4ee;
+      --paper: #ffffff;
+      --ink: #2d2d2d;
+      --muted: #6b6b6b;
+      --border: rgba(0,0,0,0.06);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--linen);
+      color: var(--ink);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2 {
+      letter-spacing: -0.03em;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Hamburger */
+    .hamburger {
+      position: fixed;
+      top: 24px;
+      left: 24px;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+      background: var(--paper);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 8px;
+      cursor: pointer;
+      z-index: 1001;
+    }
+
+    .hamburger div {
+      width: 24px;
+      height: 2.5px;
+      background: var(--ink);
+      border-radius: 2px;
+    }
+
+    /* Overlay */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.25);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+      z-index: 900;
+    }
+
+    .overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    /* Side Menu */
+    .side-menu {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 280px;
+      background: var(--paper);
+      border-right: 1px solid var(--border);
+      padding: 96px 32px;
+      transform: translateX(-110%);
+      transition: transform 0.3s ease;
+      z-index: 1000;
+      box-shadow: 8px 0 28px rgba(0,0,0,0.05);
+    }
+
+    .side-menu.open {
+      transform: translateX(0);
+    }
+
+    .side-menu nav {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .side-menu a {
+      text-decoration: none;
+      color: var(--ink);
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    .side-menu a:hover {
+      color: var(--deep-sage);
+    }
+
+    /* 404 Content */
+    main {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+    .not-found {
+      max-width: 520px;
+    }
+
+    .not-found h1 {
+      font-size: 3.2rem;
+      font-weight: 900;
+      margin-bottom: 12px;
+    }
+
+    .not-found p {
+      color: var(--muted);
+      font-size: 1.1rem;
+      margin-bottom: 32px;
+    }
+
+    .actions a {
+      display: inline-block;
+      background: var(--deep-sage);
+      color: #fff;
+      padding: 14px 32px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 800;
+    }
+
+    .actions a:hover {
+      box-shadow: 0 14px 28px rgba(95,127,85,0.35);
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- Hamburger -->
+<div class="hamburger" onclick="toggleMenu()">
+  <div></div>
+  <div></div>
+  <div></div>
+</div>
+
+<!-- Overlay -->
+<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+<!-- Side Menu -->
+<aside class="side-menu" id="sideMenu">
+  <nav>
+    <a href="/">Home</a>
+    <a href="/#about">About Us</a>
+    <a href="/#products">Our Work</a>
+    <a href="mailto:info@hebumedia.com">Contact</a>
+  </nav>
+</aside>
+
+<main class="container">
+  <div class="not-found">
+    <h1>Page not found</h1>
+    <p>
+      The page you’re looking for doesn’t exist, or may have been moved.
+      You can return home or explore our work from here.
+    </p>
+
+    <div class="actions">
+      <a href="/">Back to home</a>
+    </div>
+  </div>
+</main>
+
+<script>
+  function toggleMenu() {
+    const menu = document.getElementById('sideMenu');
+    const overlay = document.getElementById('overlay');
+
+    menu.classList.toggle('open');
+    overlay.classList.toggle('active');
+  }
+</script>
+
+</body>
+</html>
