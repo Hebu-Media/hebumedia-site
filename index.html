@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hebu Media — Independent Software Company</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    :root {
+      --sage: #8fae7a;
+      --deep-sage: #5f7f55;
+      --linen: #f7f4ee;
+      --paper: #ffffff;
+      --ink: #2d2d2d;
+      --muted: #6b6b6b;
+      --border: rgba(0,0,0,0.06);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--linen);
+      color: var(--ink);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3 { letter-spacing: -0.03em; }
+    .heavy { font-weight: 800; }
+    .container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+    section { padding: 80px 0; }
+
+    /* Hamburger Button */
+    .hamburger {
+      position: fixed;
+      top: 24px;
+      left: 24px;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+      background: var(--paper);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 8px;
+      cursor: pointer;
+      z-index: 1001;
+      transition: all 0.3s ease;
+    }
+
+    .hamburger div {
+      width: 24px;
+      height: 2.5px;
+      background: var(--ink);
+      border-radius: 2px;
+      transition: all 0.3s ease;
+      transform-origin: center center;
+    }
+
+    /* Overlay behind side menu */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.25);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+      z-index: 900;
+    }
+
+    .overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    /* Side Menu */
+    .side-menu {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 280px;
+      background: var(--paper);
+      border-right: 1px solid var(--border);
+      padding: 96px 32px;
+      transform: translateX(-110%);
+      transition: transform 0.3s ease;
+      z-index: 1000;
+      box-shadow: 8px 0 28px rgba(0,0,0,0.05);
+    }
+
+    .side-menu.open {
+      transform: translateX(0);
+    }
+
+    .side-menu nav {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .side-menu a {
+      text-decoration: none;
+      color: var(--ink);
+      font-weight: 700;
+      font-size: 1.1rem;
+      transition: color 0.2s, transform 0.2s;
+      position: relative;
+    }
+
+    .side-menu a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 0;
+      height: 2px;
+      background: var(--deep-sage);
+      transition: width 0.3s ease;
+    }
+
+    .side-menu a:hover {
+      color: var(--deep-sage);
+      transform: translateX(4px);
+    }
+
+    .side-menu a:hover::after {
+      width: 100%;
+    }
+
+    /* Header */
+    header {
+      padding: 96px 0 72px;
+    }
+
+    .brand {
+      font-size: 3.6rem;
+      font-weight: 900;
+      margin-bottom: 10px;
+    }
+
+    .tagline {
+      font-size: 1.3rem;
+      color: var(--muted);
+      max-width: 640px;
+    }
+
+    .header-actions {
+      margin-top: 36px;
+      margin-bottom: 56px;
+    }
+
+    .primary-btn {
+      background: var(--deep-sage);
+      color: #fff;
+      padding: 14px 34px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 800;
+      transition: 0.2s;
+    }
+
+    .primary-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 28px rgba(95,127,85,0.35);
+    }
+
+    /* About */
+    .about {
+      background: var(--paper);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.25fr 1fr;
+      gap: 48px;
+    }
+
+    .about p {
+      font-size: 1.08rem;
+      color: var(--muted);
+    }
+
+    .values {
+      display: grid;
+      gap: 14px;
+    }
+
+    .value {
+      padding: 18px 20px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: var(--linen);
+      font-weight: 600;
+    }
+
+    /* Products */
+    .products h2 { margin-bottom: 40px; }
+
+    .product-card {
+      background: var(--paper);
+      border: 1px solid var(--border);
+      border-radius: 26px;
+      padding: 40px;
+      max-width: 720px;
+    }
+
+    .product-label {
+      text-transform: uppercase;
+      font-size: 0.7rem;
+      letter-spacing: 1.8px;
+      font-weight: 800;
+      color: var(--deep-sage);
+    }
+
+    .product-card p { color: var(--muted); }
+
+    .product-actions {
+      display: flex;
+      gap: 14px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+
+    footer {
+      padding: 64px 0;
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    footer a {
+      color: var(--deep-sage);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    @media (max-width: 800px) {
+      .about-grid { grid-template-columns: 1fr; }
+      .brand { font-size: 2.9rem; }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- Hamburger -->
+<div class="hamburger" onclick="toggleMenu()">
+  <div></div>
+  <div></div>
+  <div></div>
+</div>
+
+<!-- Overlay -->
+<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+<!-- Side Menu -->
+<aside class="side-menu" id="sideMenu">
+  <nav>
+    <a href="#about">About Us</a>
+    <a href="#products">Our Work</a>
+    <a href="#">Jobs</a>
+    <a href="mailto:info@hebumedia.com">Contact</a>
+  </nav>
+</aside>
+
+<header class="container">
+  <h1 class="brand">Hebu Media</h1>
+  <p class="tagline">
+    An independent software company building clear, dependable tools — made for people who value work done properly.
+  </p>
+
+  <div class="header-actions">
+    <a href="#products" class="primary-btn">Our Products</a>
+  </div>
+</header>
+
+<section id="about" class="about">
+  <div class="container about-grid">
+    <div>
+      <h2 class="heavy">Built carefully, meant to last</h2>
+      <p>
+        Hebu Media is a small, independent software company.
+        We build practical tools the same way we approach our work — carefully, honestly, and with attention to detail.
+      </p>
+      <p>
+        That means no gimmicks, no inflated promises, and no unnecessary complexity.
+        Just software that’s clear about what it does and dependable once it’s in your hands.
+      </p>
+    </div>
+
+    <div class="values">
+      <div class="value">People come first</div>
+      <div class="value">Clarity over cleverness</div>
+      <div class="value">Respect for privacy and ownership</div>
+      <div class="value">Built in-house, maintained with care</div>
+    </div>
+  </div>
+</section>
+
+<section id="products" class="products">
+  <div class="container">
+    <h2 class="heavy">Our work</h2>
+
+    <div class="product-card">
+      <span class="product-label">First product</span>
+      <h3 class="heavy">Plotlines</h3>
+      <p>
+        Plotlines is a narrative-based productivity app that helps people organize real work
+        without noise, pressure, or artificial urgency.
+      </p>
+      <div class="product-actions">
+        <a href="./plotlines.html" class="primary-btn">Visit Plotlines</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2025 Hebu Media LLC ·
+  <a href="mailto:info@hebumedia.com">info@hebumedia.com</a>
+</footer>
+
+<script>
+  function toggleMenu() {
+    const menu = document.getElementById('sideMenu');
+    const overlay = document.getElementById('overlay');
+    const hamburger = document.querySelector('.hamburger');
+
+    menu.classList.toggle('open');
+    overlay.classList.toggle('active');
+    hamburger.classList.toggle('open');
+  }
+</script>
+
+</body>
+</html>
