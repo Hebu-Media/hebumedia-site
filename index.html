@@ -32,7 +32,6 @@
     .container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
     section { padding: 80px 0; }
 
-    /* Hamburger Button */
     .hamburger {
       position: fixed;
       top: 24px;
@@ -49,7 +48,6 @@
       padding: 8px;
       cursor: pointer;
       z-index: 1001;
-      transition: all 0.3s ease;
     }
 
     .hamburger div {
@@ -57,11 +55,8 @@
       height: 2.5px;
       background: var(--ink);
       border-radius: 2px;
-      transition: all 0.3s ease;
-      transform-origin: center center;
     }
 
-    /* Overlay behind side menu */
     .overlay {
       position: fixed;
       top: 0;
@@ -80,7 +75,6 @@
       pointer-events: all;
     }
 
-    /* Side Menu */
     .side-menu {
       position: fixed;
       top: 0;
@@ -93,7 +87,6 @@
       transform: translateX(-110%);
       transition: transform 0.3s ease;
       z-index: 1000;
-      box-shadow: 8px 0 28px rgba(0,0,0,0.05);
     }
 
     .side-menu.open {
@@ -111,31 +104,8 @@
       color: var(--ink);
       font-weight: 700;
       font-size: 1.1rem;
-      transition: color 0.2s, transform 0.2s;
-      position: relative;
     }
 
-    .side-menu a::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: -4px;
-      width: 0;
-      height: 2px;
-      background: var(--deep-sage);
-      transition: width 0.3s ease;
-    }
-
-    .side-menu a:hover {
-      color: var(--deep-sage);
-      transform: translateX(4px);
-    }
-
-    .side-menu a:hover::after {
-      width: 100%;
-    }
-
-    /* Header */
     header {
       padding: 96px 0 72px;
     }
@@ -164,15 +134,8 @@
       border-radius: 999px;
       text-decoration: none;
       font-weight: 800;
-      transition: 0.2s;
     }
 
-    .primary-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 14px 28px rgba(95,127,85,0.35);
-    }
-
-    /* About */
     .about {
       background: var(--paper);
       border-top: 1px solid var(--border);
@@ -203,7 +166,6 @@
       font-weight: 600;
     }
 
-    /* Products */
     .products h2 { margin-bottom: 40px; }
 
     .product-card {
@@ -220,15 +182,6 @@
       letter-spacing: 1.8px;
       font-weight: 800;
       color: var(--deep-sage);
-    }
-
-    .product-card p { color: var(--muted); }
-
-    .product-actions {
-      display: flex;
-      gap: 14px;
-      margin-top: 16px;
-      flex-wrap: wrap;
     }
 
     footer {
@@ -253,30 +206,27 @@
 
 <body>
 
-<!-- Hamburger -->
 <div class="hamburger" onclick="toggleMenu()">
   <div></div>
   <div></div>
   <div></div>
 </div>
 
-<!-- Overlay -->
 <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
-<!-- Side Menu -->
 <aside class="side-menu" id="sideMenu">
   <nav>
     <a href="about.html">About Us</a>
-    <a href="#products">Our Work</a>
+    <a href="#products">Our Products</a>
     <a href="#">Jobs</a>
-    <a href="mailto:info@hebumedia.com">Contact</a>
+    <a href="mailto:info@hebumedia.com">General inquiries</a>
   </nav>
 </aside>
 
 <header class="container">
   <h1 class="brand">Hebu Media</h1>
   <p class="tagline">
-    An independent software company building clear, dependable tools for people who value work done properly.
+    An independent software company creating and maintaining its own products with care, clarity, and long-term intent.
   </p>
 
   <div class="header-actions">
@@ -289,12 +239,14 @@
     <div>
       <h2 class="heavy">Built with care, meant to last</h2>
       <p>
-        Hebu Media is an independent software company.
-        We build practical tools with care, honesty, and close attention to detail.
+        Hebu Media is an independent software company focused on building and maintaining its own products.
+        All software is designed, developed, and supported in-house.
       </p>
       <p>
-        That means no inflated promises and no unnecessary complexity.
-        Just software that is clear in its purpose and dependable in practice.
+        We value clarity over cleverness, honesty over hype, and long-term usefulness over rapid iteration for its own sake.
+      </p>
+      <p>
+        <strong>Hebu Media does not offer client services and is not seeking development partners, agencies, or outsourced engineering support.</strong>
       </p>
     </div>
 
@@ -309,7 +261,7 @@
 
 <section id="products" class="products">
   <div class="container">
-    <h2 class="heavy">Our work</h2>
+    <h2 class="heavy">Our products</h2>
 
     <div class="product-card">
       <span class="product-label">First product</span>
@@ -333,11 +285,8 @@
   function toggleMenu() {
     const menu = document.getElementById('sideMenu');
     const overlay = document.getElementById('overlay');
-    const hamburger = document.querySelector('.hamburger');
-
     menu.classList.toggle('open');
     overlay.classList.toggle('active');
-    hamburger.classList.toggle('open');
   }
 </script>
 
