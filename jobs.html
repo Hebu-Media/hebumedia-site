@@ -1,3 +1,5 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,7 +24,7 @@
 fetch('sidebar.html').then(r=>r.text()).then(html=>document.getElementById('sidebar-placeholder').innerHTML=html);
 
 async function loadJobs() {
-  const csvUrl = 'YOUR_CSV_LINK_HERE';
+  const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTT-fr3hRKQJkI_uKf2BTzdkA8xBEw8AUA7yc3MDwvjpdrhk3FVPeJvY3Ag0gPwEVN_vVl8lzvbcCos/pub?gid=0&single=true&output=csv';
   const res = await fetch(csvUrl);
   const text = await res.text();
   const rows = text.split('\n').slice(1).filter(r=>r.trim()!=='');
