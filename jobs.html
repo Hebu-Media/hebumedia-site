@@ -1,34 +1,48 @@
-<div id="jobs-list"></div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jobs — Hebu Media</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div id="sidebar-placeholder"></div>
+
+<header class="container">
+  <h1 class="heavy">Jobs at Hebu Media</h1>
+</header>
+
+<section class="container" id="jobs-list">
+  <p>Loading jobs…</p>
+</section>
 
 <script>
+fetch('sidebar.html').then(r=>r.text()).then(html=>document.getElementById('sidebar-placeholder').innerHTML=html);
+
 async function loadJobs() {
-  const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTT-fr3hRKQJkI_uKf2BTzdkA8xBEw8AUA7yc3MDwvjpdrhk3FVPeJvY3Ag0gPwEVN_vVl8lzvbcCos/pub?gid=0&single=true&output=csv';
+  const csvUrl = 'YOUR_CSV_LINK_HERE';
   const res = await fetch(csvUrl);
-  const csvText = await res.text();
-  
-  const rows = csvText.split('\n').slice(1); // skip header
-  const jobs = rows.filter(r => r.trim() !== '').map(r => r.split(','));
+  const text = await res.text();
+  const rows = text.split('\n').slice(1).filter(r=>r.trim()!=='');
   
   const container = document.getElementById('jobs-list');
-  
-  if(jobs.length === 0) {
-    container.innerHTML = '<p>No jobs available at this time.</p>';
+  if(rows.length===0){
+    container.innerHTML='<p>No jobs available at this time.</p>';
     return;
   }
 
-  let html = '<ul>';
-  jobs.forEach(j => {
-    const [title, location, description, link] = j;
-    html += `<li>
-      <h3>${title}</h3>
-      <p>${location}</p>
-      <p>${description}</p>
-      <a href="${link}">Apply</a>
-    </li>`;
+  let html='<ul>';
+  rows.forEach(r=>{
+    const [title,location,desc,link] = r.split(',');
+    html+=`<li><h3>${title}</h3><p>${location}</p><p>${desc}</p><a href="${link}">Apply</a></li>`;
   });
-  html += '</ul>';
-  container.innerHTML = html;
+  html+='</ul>';
+  container.innerHTML=html;
 }
 
 loadJobs();
 </script>
+</body>
+</html>
