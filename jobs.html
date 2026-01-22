@@ -1,50 +1,72 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jobs — Hebu Media</title>
-<link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8" />
+  <title>Jobs at Hebu Media</title>
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- PapaParse for proper CSV handling -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 </head>
 <body>
 
-<div id="sidebar-placeholder"></div>
+  <!-- Sidebar -->
+  <div id="sidebar-placeholder"></div>
 
-<header class="container">
-  <h1 class="heavy">Jobs at Hebu Media</h1>
-</header>
+  <!-- Main content -->
+  <main class="content">
+    <h1>Jobs at Hebu Media</h1>
+    <p class="subtle">We’re small right now, but growing thoughtfully.</p>
 
-<section class="container" id="jobs-list">
-  <p>Loading jobs…</p>
-</section>
+    <section id="jobs-list">
+      <p>Loading jobs…</p>
+    </section>
+  </main>
 
-<script>
-fetch('sidebar.html').then(r=>r.text()).then(html=>document.getElementById('sidebar-placeholder').innerHTML=html);
+  <script>
+    /* Load sidebar */
+    fetch('sidebar.html')
+      .then(r => r.text())
+      .then(html => {
+        document.getElementById('sidebar-placeholder').innerHTML = html;
+      });
 
-async function loadJobs() {
-  const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTT-fr3hRKQJkI_uKf2BTzdkA8xBEw8AUA7yc3MDwvjpdrhk3FVPeJvY3Ag0gPwEVN_vVl8lzvbcCos/pub?gid=0&single=true&output=csv';
-  const res = await fetch(csvUrl);
-  const text = await res.text();
-  const rows = text.split('\n').slice(1).filter(r=>r.trim()!=='');
-  
-  const container = document.getElementById('jobs-list');
-  if(rows.length===0){
-    container.innerHTML='<p>No jobs available at this time.</p>';
-    return;
-  }
+    /* Google Sheets CSV */
+    const csvUrl =
+      'https://docs.google.com/spreadsheets/d/e/2PACX-1vTT-fr3hRKQJkI_uKf2BTzdkA8xBEw8AUA7yc3MDwvjpdrhk3FVPeJvY3Ag0gPwEVN_vVl8lzvbcCos/pub?gid=0&single=true&output=csv';
 
-  let html='<ul>';
-  rows.forEach(r=>{
-    const [title,location,desc,link] = r.split(',');
-    html+=`<li><h3>${title}</h3><p>${location}</p><p>${desc}</p><a href="${link}">Apply</a></li>`;
-  });
-  html+='</ul>';
-  container.innerHTML=html;
-}
+    Papa.parse(csvUrl, {
+      download: true,
+      header: true,
+      skipEmptyLines: true,
+      complete: function (results) {
+        const jobs = results.data.filter(job => job.Title);
+        const container = document.getElementById('jobs-list');
 
-loadJobs();
-</script>
+        if (!jobs.length) {
+          container.innerHTML =
+            '<p>No jobs available at this time.</p>';
+          return;
+        }
+
+        container.innerHTML = jobs.map(job => `
+          <article class="job-card">
+            <h3>${job.Title}</h3>
+            ${job.Location ? `<p class="meta">${job.Location}</p>` : ''}
+            ${job.Description ? `<p>${job.Description}</p>` : ''}
+            ${job['Apply Link']
+              ? `<a class="button" href="${job['Apply Link']}" target="_blank">Apply</a>`
+              : ''}
+          </article>
+        `).join('');
+      },
+      error: function (err) {
+        console.error(err);
+        document.getElementById('jobs-list').innerHTML =
+          '<p>Error loading jobs.</p>';
+      }
+    });
+  </script>
+
 </body>
 </html>
