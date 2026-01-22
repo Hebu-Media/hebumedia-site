@@ -1,0 +1,34 @@
+<div id="jobs-list"></div>
+
+<script>
+async function loadJobs() {
+  const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTT-fr3hRKQJkI_uKf2BTzdkA8xBEw8AUA7yc3MDwvjpdrhk3FVPeJvY3Ag0gPwEVN_vVl8lzvbcCos/pub?gid=0&single=true&output=csv';
+  const res = await fetch(csvUrl);
+  const csvText = await res.text();
+  
+  const rows = csvText.split('\n').slice(1); // skip header
+  const jobs = rows.filter(r => r.trim() !== '').map(r => r.split(','));
+  
+  const container = document.getElementById('jobs-list');
+  
+  if(jobs.length === 0) {
+    container.innerHTML = '<p>No jobs available at this time.</p>';
+    return;
+  }
+
+  let html = '<ul>';
+  jobs.forEach(j => {
+    const [title, location, description, link] = j;
+    html += `<li>
+      <h3>${title}</h3>
+      <p>${location}</p>
+      <p>${description}</p>
+      <a href="${link}">Apply</a>
+    </li>`;
+  });
+  html += '</ul>';
+  container.innerHTML = html;
+}
+
+loadJobs();
+</script>
