@@ -13,7 +13,19 @@
  <div class="layout">
 
     <!-- Sidebar -->
-    <aside id="sidebar-placeholder"></aside>
+    <!-- Hamburger -->
+<div class="hamburger" onclick="toggleMenu()">
+  <div></div>
+  <div></div>
+  <div></div>
+</div>
+
+<!-- Overlay -->
+<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+<!-- Side Menu -->
+<aside class="side-menu" id="sideMenu"></aside>
+
 
     <!-- Main content -->
     <main class="content">
@@ -29,11 +41,18 @@
   
   <script>
     /* Load sidebar */
-    fetch('sidebar.html')
-      .then(r => r.text())
-      .then(html => {
-        document.getElementById('sidebar-placeholder').innerHTML = html;
-      });
+  fetch('sidebar.html')
+    .then(r => r.text())
+    .then(html => {
+      document.getElementById('sideMenu').innerHTML = html;
+    });
+
+  function toggleMenu() {
+    document.getElementById('sideMenu').classList.toggle('open');
+    document.getElementById('overlay').classList.toggle('active');
+  }
+
+
 
     /* Google Sheets CSV */
     const csvUrl =
