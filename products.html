@@ -11,72 +11,125 @@
 
 <body>
 
-  <div class="layout">
+<div class="layout">
 
-    <!-- Hamburger Menu -->
-    <div class="hamburger" onclick="toggleMenu()">
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
-
-    <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
-
-    <!-- Sidebar -->
-    <aside class="side-menu" id="sideMenu"></aside>
-
-    <!-- Main Content -->
-    <main class="content">
-
-      <header class="container">
-        <h1 class="brand">Hebu Media</h1>
-        <p class="tagline">
-          Our independent software products are built with care, clarity, and long-term support in mind.
-        </p>
-      </header>
-
-      <section id="products" class="products">
-        <div class="container">
-          <h2 class="heavy">Our Products</h2>
-
-          <div class="product-card">
-            <span class="product-label">First product</span>
-            <h3 class="heavy">Plotlines</h3>
-            <p>
-              Plotlines is a narrative-based productivity application designed to help people organize real work without noise, pressure, or artificial urgency.
-            </p>
-            <div class="product-actions">
-              <a href="#" class="button">Join Waitlist</a>
-            </div>
-          </div>
-
-          <!-- Future products can be added here -->
-        </div>
-      </section>
-
-      <footer>
-        © 2026 Hebu Media LLC ·
-        <a href="mailto:info@hebumedia.com">info@hebumedia.com</a>
-      </footer>
-
-    </main>
+  <!-- Hamburger Menu -->
+  <div class="hamburger" onclick="toggleMenu()">
+    <div></div>
+    <div></div>
+    <div></div>
   </div>
 
-  <script>
-    // Load shared sidebar
-    fetch('sidebar.html')
-      .then(r => r.text())
-      .then(html => {
-        document.getElementById('sideMenu').innerHTML = html;
-      })
-      .catch(err => console.error("Error loading sidebar:", err));
+  <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
-    // Sidebar Toggle Logic
-    function toggleMenu() {
-      document.getElementById('sideMenu').classList.toggle('open');
-      document.getElementById('overlay').classList.toggle('active');
-    }
-  </script>
+  <!-- Sidebar -->
+  <aside class="side-menu" id="sideMenu"></aside>
+
+  <main class="content">
+
+    <header class="container">
+      <h1 class="brand">Hebu Media</h1>
+      <p class="tagline">
+        Our independent software products are built with care, clarity, and long-term support in mind.
+      </p>
+    </header>
+
+    <section id="products" class="products">
+      <div class="container">
+        <h2 class="heavy">Our Products</h2>
+
+        <!-- Plotlines Product Card -->
+        <div class="product-card">
+          <span class="product-label">First product</span>
+          <h3 class="heavy">Plotlines</h3>
+          <p>
+            Plotlines is a narrative-based productivity application designed to help people organize real work without noise, pressure, or artificial urgency.
+          </p>
+
+          <div class="product-actions">
+            <button class="button" id="waitlistBtn">Join Waitlist</button>
+          </div>
+
+          <!-- Hidden Waitlist Form -->
+          <div class="contact-card" id="waitlistForm" style="display:none; margin-top:24px;">
+            <h4 class="heavy">Join the waitlist</h4>
+            <p>Enter your email below to be notified when Plotlines launches.</p>
+
+            <form id="waitlistFormInner">
+              <div class="field">
+                <label for="waitlistEmail">Email</label>
+                <input type="email" id="waitlistEmail" name="entry.1485232671" placeholder="you@example.com" required />
+              </div>
+
+              <div class="form-action">
+                <button type="submit" class="button">Join Waitlist</button>
+              </div>
+
+              <div class="success" id="waitlistSuccess">Thanks! You’ve been added to the waitlist.</div>
+            </form>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <footer>
+      © 2026 Hebu Media LLC ·
+      <a href="mailto:info@hebumedia.com">info@hebumedia.com</a>
+    </footer>
+
+  </main>
+</div>
+
+<script>
+  const sideMenu = document.getElementById('sideMenu');
+
+  // Load shared sidebar
+  fetch('sidebar.html')
+    .then(r => r.text())
+    .then(html => { sideMenu.innerHTML = html; })
+    .catch(err => console.error("Error loading sidebar:", err));
+
+  // Sidebar Toggle Logic
+  function toggleMenu() {
+    sideMenu.classList.toggle('open');
+    document.getElementById('overlay').classList.toggle('active');
+  }
+
+  // Toggle waitlist form
+  const waitlistBtn = document.getElementById('waitlistBtn');
+  const waitlistForm = document.getElementById('waitlistForm');
+  waitlistBtn.addEventListener('click', () => {
+    waitlistForm.style.display = waitlistForm.style.display === 'none' ? 'block' : 'none';
+  });
+
+  // Reusable Google Form function
+  function setupGoogleForm(formSelector, successSelector, googleFormUrl) {
+    const form = document.querySelector(formSelector);
+    const success = document.querySelector(successSelector);
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      fetch(googleFormUrl, {
+        method: 'POST',
+        mode: 'no-cors',
+        body: new FormData(form)
+      }).then(() => {
+        form.reset();
+        success.style.display = 'block';
+      });
+    });
+  }
+
+  // Initialize waitlist form
+  setupGoogleForm(
+    '#waitlistFormInner',
+    '#waitlistSuccess',
+    'https://docs.google.com/forms/d/e/1FAIpQLScCgmYNQQGjCazvBEv7PwTFi--W30yX-QgAk5407d_4jOAZnA/formResponse'
+  );
+
+</script>
 
 </body>
 </html>

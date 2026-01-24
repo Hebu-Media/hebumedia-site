@@ -9,7 +9,7 @@
 </head>
 <body>
 
-  <div class="layout">
+<div class="layout">
 
   <!-- Hamburger -->
   <div class="hamburger" onclick="toggleMenu()">
@@ -24,74 +24,76 @@
   <!-- Side Menu -->
   <aside class="side-menu" id="sideMenu"></aside>
 
-<main class="content">
-  <header class="container">
-    <h1 class="brand">Hebu Media</h1>
-    <p class="tagline">
-      We build dependable software with restraint, clarity, and respect for the people who use it.
-    </p>
-  </header>
-
-  <section class="about">
-    <div class="container about-grid">
-      <div class="about-text">
-        <h2 class="heavy">How we work</h2>
-        <p>
-          Hebu Media is intentionally small. Independence gives us the freedom to design carefully,
-          maintain what we build, and avoid unnecessary complexity.
-        </p>
-        <p>
-          We focus on work that can be understood, trusted, and supported long-term.
-        </p>
-      </div>
-
-      <div class="principles">
-        <div class="principle">Built slowly and deliberately</div>
-        <div class="principle">Clear ownership and privacy</div>
-        <div class="principle">No artificial urgency</div>
-        <div class="principle">Longevity over scale</div>
-      </div>
-    </div>
-  </section>
-
-  <section class="contact">
-    <div class="contact-card">
-      <h2 class="heavy">Get in touch</h2>
-      <p>
-        If you have a question about our work or want to reach out,
-        you can use the form below. We read every message.
+  <main class="content">
+    <header class="container">
+      <h1 class="brand">Hebu Media</h1>
+      <p class="tagline">
+        We build dependable software with restraint, clarity, and respect for the people who use it.
       </p>
+    </header>
 
-      <form id="contactForm">
-        <div class="field">
-          <label>Name</label>
-          <input name="entry.NAME_ID" required>
+    <!-- About / Principles Section -->
+    <section class="about">
+      <div class="container content-grid">
+        <div class="about-text">
+          <h2 class="heavy">How we work</h2>
+          <p>
+            Hebu Media is intentionally small. Independence gives us the freedom to design carefully,
+            maintain what we build, and avoid unnecessary complexity.
+          </p>
+          <p>
+            We focus on work that can be understood, trusted, and supported long-term.
+          </p>
         </div>
 
-        <div class="field">
-          <label>Email</label>
-          <input type="email" name="entry.EMAIL_ID" required>
+        <div class="principles">
+          <div class="principle">Built slowly and deliberately</div>
+          <div class="principle">Clear ownership and privacy</div>
+          <div class="principle">No artificial urgency</div>
+          <div class="principle">Longevity over scale</div>
         </div>
+      </div>
+    </section>
 
-        <div class="field">
-          <label>Message</label>
-          <textarea name="entry.MESSAGE_ID" required></textarea>
-        </div>
+    <!-- Contact Section -->
+    <section class="contact">
+      <div class="contact-card">
+        <h2 class="heavy">Get in touch</h2>
+        <p>
+          If you have a question about our work or want to reach out,
+          you can use the form below. We read every message.
+        </p>
 
-        <div class="form-action">
-          <button type="submit" class="button">Send message</button>
-        </div>
+        <form id="contactForm">
+          <div class="field">
+            <label>Name</label>
+            <input type="text" name="entry.60531367" required>
+          </div>
 
-        <div class="success" id="successMsg">Thank you — your message has been sent.</div>
-      </form>
-    </div>
-    </div>
-  </section>
+          <div class="field">
+            <label>Email</label>
+            <input type="email" name="entry.2100458716" required>
+          </div>
 
-  <footer>
-    © 2026 Hebu Media LLC · <a href="mailto:info@hebumedia.com">info@hebumedia.com</a>
-  </footer>
-</main>
+          <div class="field">
+            <label>Message</label>
+            <textarea name="entry.178865640" required></textarea>
+          </div>
+
+          <div class="form-action">
+            <button type="submit" class="button">Send message</button>
+          </div>
+
+          <div class="success" id="successMsg">Thank you — your message has been sent.</div>
+        </form>
+      </div>
+    </section>
+
+    <footer>
+      © 2026 Hebu Media LLC · <a href="mailto:info@hebumedia.com">info@hebumedia.com</a>
+    </footer>
+  </main>
+</div>
 
 <script>
   const sideMenu = document.getElementById('sideMenu');
@@ -99,33 +101,40 @@
   // Load shared sidebar
   fetch('sidebar.html')
     .then(r => r.text())
-    .then(html => {
-      sideMenu.innerHTML = html;
-    })
+    .then(html => { sideMenu.innerHTML = html; })
     .catch(err => console.error("Error loading sidebar:", err));
 
+  // Sidebar toggle
   function toggleMenu() {
     sideMenu.classList.toggle('open');
     document.getElementById('overlay').classList.toggle('active');
   }
 
-  // Contact form submission
-  const form = document.getElementById('contactForm');
-  const success = document.getElementById('successMsg');
+  // Reusable Google Forms submit
+  function setupGoogleForm(formSelector, successSelector, googleFormUrl) {
+    const form = document.querySelector(formSelector);
+    const success = document.querySelector(successSelector);
 
-  form.addEventListener('submit', function(e) {
-    e.preventDefault();
-    fetch('https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse', {
-      method: 'POST',
-      mode: 'no-cors',
-      body: new FormData(form)
-    }).then(() => {
-      form.reset();
-      success.style.display = 'block';
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      fetch(googleFormUrl, {
+        method: 'POST',
+        mode: 'no-cors',
+        body: new FormData(form)
+      }).then(() => {
+        form.reset();
+        success.style.display = 'block';
+      });
     });
-  });
-</script>
+  }
 
+  // Initialize Contact Form
+  setupGoogleForm(
+    '#contactForm',
+    '#successMsg',
+    'https://docs.google.com/forms/d/e/1FAIpQLSeXgTx1BGCl3H_IzKNbqc_i6QT8BC4OiXqRRoAqg0o_ZC-tqw/formResponse'
+  );
+</script>
 
 </body>
 </html>

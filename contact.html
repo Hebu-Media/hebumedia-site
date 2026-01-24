@@ -4,100 +4,99 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Contact — Hebu Media</title>
-  
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
 <body>
 
-  <div class="layout">
+<div class="layout">
 
-    <!-- Hamburger Menu -->
-    <div class="hamburger" onclick="toggleMenu()">
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
-
-    <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
-
-    <!-- Sidebar -->
-    <aside class="side-menu" id="sideMenu"></aside>
-
-    <!-- Main Content -->
-    <main class="content">
-
-      <header class="container">
-        <h1 class="brand">Hebu Media</h1>
-        <p class="tagline">
-          Reach out to us with any questions about our work. We read every message.
-        </p>
-      </header>
-
-      <section class="contact">
-        <div class="contact-card">
-          <h2 class="heavy">Get in touch</h2>
-          <p>
-            If you have a question about our products, or want to reach out, use the form below.
-          </p>
-
-          <form id="contactForm">
-            <div class="field">
-              <label for="name">Name</label>
-              <input type="text" id="name" name="entry.NAME_ID" required />
-            </div>
-
-            <div class="field">
-              <label for="email">Email</label>
-              <input type="email" id="email" name="entry.EMAIL_ID" required />
-            </div>
-
-            <div class="field">
-              <label for="message">Message</label>
-              <textarea id="message" name="entry.MESSAGE_ID" required></textarea>
-            </div>
-
-            <div class="form-action">
-              <button type="submit" class="button">Send message</button>
-            </div>
-
-            <div class="success" id="successMsg">Thank you — your message has been sent.</div>
-          </form>
-        </div>
-      </section>
-
-      <footer>
-        © 2026 Hebu Media LLC ·
-        <a href="mailto:info@hebumedia.com">info@hebumedia.com</a>
-      </footer>
-
-    </main>
+  <!-- Hamburger -->
+  <div class="hamburger" onclick="toggleMenu()">
+    <div></div>
+    <div></div>
+    <div></div>
   </div>
 
-  <script>
-    // Load shared sidebar
-    fetch('sidebar.html')
-      .then(r => r.text())
-      .then(html => {
-        document.getElementById('sideMenu').innerHTML = html;
-      })
-      .catch(err => console.error("Error loading sidebar:", err));
+  <!-- Overlay -->
+  <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
-    // Sidebar Toggle Logic
-    function toggleMenu() {
-      document.getElementById('sideMenu').classList.toggle('open');
-      document.getElementById('overlay').classList.toggle('active');
-    }
+  <!-- Side Menu -->
+  <aside class="side-menu" id="sideMenu"></aside>
 
-    // Contact Form Submission
-    const form = document.getElementById('contactForm');
-    const success = document.getElementById('successMsg');
+  <main class="content">
 
-    form.addEventListener('submit', function(e) {
+    <header class="container">
+      <h1 class="brand">Hebu Media</h1>
+      <p class="tagline">
+        Reach out to us with any questions about our work. We read every message.
+      </p>
+    </header>
+
+    <!-- Contact Form Section -->
+    <section class="contact">
+      <div class="contact-card">
+        <h2 class="heavy">Get in touch</h2>
+        <p>
+          If you have a question about our products, or want to reach out, use the form below.
+        </p>
+
+        <form id="contactForm">
+          <div class="field">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="entry.60531367" required />
+          </div>
+
+          <div class="field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="entry.2100458716" required />
+          </div>
+
+          <div class="field">
+            <label for="message">Message</label>
+            <textarea id="message" name="entry.178865640" required></textarea>
+          </div>
+
+          <div class="form-action">
+            <button type="submit" class="button">Send message</button>
+          </div>
+
+          <div class="success" id="successMsg">Thank you — your message has been sent.</div>
+        </form>
+      </div>
+    </section>
+
+    <footer>
+      © 2026 Hebu Media LLC ·
+      <a href="mailto:info@hebumedia.com">info@hebumedia.com</a>
+    </footer>
+
+  </main>
+</div>
+
+<script>
+  const sideMenu = document.getElementById('sideMenu');
+
+  // Load sidebar dynamically
+  fetch('sidebar.html')
+    .then(r => r.text())
+    .then(html => { sideMenu.innerHTML = html; })
+    .catch(err => console.error("Error loading sidebar:", err));
+
+  function toggleMenu() {
+    sideMenu.classList.toggle('open');
+    document.getElementById('overlay').classList.toggle('active');
+  }
+
+  // Reusable Google Form setup
+  function setupGoogleForm(formSelector, successSelector, googleFormUrl) {
+    const form = document.querySelector(formSelector);
+    const success = document.querySelector(successSelector);
+
+    form.addEventListener('submit', e => {
       e.preventDefault();
-
-      fetch('https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse', {
+      fetch(googleFormUrl, {
         method: 'POST',
         mode: 'no-cors',
         body: new FormData(form)
@@ -106,7 +105,15 @@
         success.style.display = 'block';
       });
     });
-  </script>
+  }
+
+  // Initialize Contact Form
+  setupGoogleForm(
+    '#contactForm',
+    '#successMsg',
+    'https://docs.google.com/forms/d/e/1FAIpQLSeXgTx1BGCl3H_IzKNbqc_i6QT8BC4OiXqRRoAqg0o_ZC-tqw/formResponse'
+  );
+</script>
 
 </body>
 </html>
