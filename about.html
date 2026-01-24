@@ -94,8 +94,15 @@
 </main>
 
 <script>
-  // Load sidebar dynamically if needed
   const sideMenu = document.getElementById('sideMenu');
+
+  // Load shared sidebar
+  fetch('sidebar.html')
+    .then(r => r.text())
+    .then(html => {
+      sideMenu.innerHTML = html;
+    })
+    .catch(err => console.error("Error loading sidebar:", err));
 
   function toggleMenu() {
     sideMenu.classList.toggle('open');
@@ -118,6 +125,7 @@
     });
   });
 </script>
+
 
 </body>
 </html>
