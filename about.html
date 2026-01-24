@@ -5,287 +5,55 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>About — Hebu Media</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-  <style>
-    :root {
-      --sage: #8fae7a;
-      --deep-sage: #5f7f55;
-      --linen: #f7f4ee;
-      --paper: #ffffff;
-      --ink: #2d2d2d;
-      --muted: #6b6b6b;
-      --border: rgba(0,0,0,0.06);
-    }
-
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: var(--linen);
-      color: var(--ink);
-      line-height: 1.6;
-    }
-
-    h1, h2, h3 { letter-spacing: -0.03em; }
-    .heavy { font-weight: 800; }
-    .container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
-    section { padding: 80px 0; }
-
-    /* Hamburger */
-    .hamburger {
-      position: fixed;
-      top: 24px;
-      left: 24px;
-      width: 44px;
-      height: 44px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-around;
-      align-items: center;
-      background: var(--paper);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 8px;
-      cursor: pointer;
-      z-index: 1001;
-    }
-
-    .hamburger div {
-      width: 24px;
-      height: 2.5px;
-      background: var(--ink);
-      border-radius: 2px;
-    }
-
-    /* Overlay */
-    .overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.25);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.25s ease;
-      z-index: 900;
-    }
-
-    .overlay.active {
-      opacity: 1;
-      pointer-events: all;
-    }
-
-    /* Side Menu */
-    .side-menu {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 280px;
-      background: var(--paper);
-      border-right: 1px solid var(--border);
-      padding: 96px 32px;
-      transform: translateX(-110%);
-      transition: transform 0.3s ease;
-      z-index: 1000;
-      box-shadow: 8px 0 28px rgba(0,0,0,0.05);
-    }
-
-    .side-menu.open {
-      transform: translateX(0);
-    }
-
-    .side-menu nav {
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-    }
-
-    .side-menu a {
-      text-decoration: none;
-      color: var(--ink);
-      font-weight: 700;
-      font-size: 1.1rem;
-    }
-
-    /* Header */
-    header {
-      padding: 96px 0 72px;
-    }
-
-    .eyebrow {
-      text-transform: uppercase;
-      font-size: 0.75rem;
-      letter-spacing: 1.6px;
-      color: var(--deep-sage);
-      font-weight: 800;
-      margin-bottom: 12px;
-    }
-
-    .brand {
-      font-size: 3.2rem;
-      font-weight: 900;
-      margin-bottom: 14px;
-    }
-
-    .tagline {
-      font-size: 1.2rem;
-      color: var(--muted);
-      max-width: 640px;
-    }
-
-    /* Content */
-    .content {
-      background: var(--paper);
-      border-top: 1px solid var(--border);
-    }
-
-    .content-grid {
-      display: grid;
-      grid-template-columns: 1.25fr 1fr;
-      gap: 56px;
-    }
-
-    .content p {
-      font-size: 1.05rem;
-      color: var(--muted);
-    }
-
-    .principles {
-      display: grid;
-      gap: 16px;
-    }
-
-    .principle {
-      padding: 20px 22px;
-      border-radius: 16px;
-      border: 1px solid var(--border);
-      background: var(--linen);
-      font-weight: 600;
-    }
-
-    /* Contact */
-    .contact {
-      background: var(--linen);
-      border-top: 1px solid var(--border);
-    }
-
-    .contact-card {
-      max-width: 640px;
-      background: var(--paper);
-      border: 1px solid var(--border);
-      border-radius: 28px;
-      padding: 48px;
-    }
-
-    .contact-card p {
-      color: var(--muted);
-      margin-bottom: 32px;
-    }
-
-    .field {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      margin-bottom: 20px;
-    }
-
-    label {
-      font-size: 0.85rem;
-      font-weight: 700;
-    }
-
-    input, textarea {
-      font-family: inherit;
-      padding: 14px 16px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      font-size: 0.95rem;
-    }
-
-    textarea {
-      resize: vertical;
-      min-height: 120px;
-    }
-
-    button {
-      background: var(--deep-sage);
-      color: #fff;
-      padding: 14px 34px;
-      border-radius: 999px;
-      border: none;
-      font-weight: 800;
-      cursor: pointer;
-    }
-
-    .success {
-      display: none;
-      margin-top: 20px;
-      color: var(--deep-sage);
-      font-weight: 600;
-    }
-
-    footer {
-      padding: 64px 0;
-      text-align: center;
-      font-size: 0.85rem;
-      color: var(--muted);
-    }
-
-    @media (max-width: 800px) {
-      .content-grid { grid-template-columns: 1fr; }
-      .brand { font-size: 2.7rem; }
-    }
-  </style>
+  <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
 
-<div class="hamburger" onclick="toggleMenu()">
-  <div></div><div></div><div></div>
-</div>
 
-<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
-
-<aside class="side-menu" id="sideMenu">
-  <nav>
-    <a href="./index.html#about">About Us</a>
-    <a href="./index.html#products">Our Work</a>
-    <a href="#">Jobs</a>
-    <a href="mailto:info@hebumedia.com">Contact</a>
-  </nav>
-</aside>
-
-<header class="container">
-  <div class="eyebrow">About</div>
-  <h1 class="brand">Hebu Media</h1>
-  <p class="tagline">
-    We build dependable software with restraint, clarity, and respect for the people who use it.
-  </p>
-</header>
-
-<section class="content">
-  <div class="container content-grid">
-    <div>
-      <h2 class="heavy">How we work</h2>
-      <p>
-        Hebu Media is intentionally small. Independence gives us the freedom to design carefully,
-        maintain what we build, and avoid unnecessary complexity.
-      </p>
-      <p>
-        We focus on work that can be understood, trusted, and supported long-term.
-      </p>
-    </div>
-
-    <div class="principles">
-      <div class="principle">Built slowly and deliberately</div>
-      <div class="principle">Clear ownership and privacy</div>
-      <div class="principle">No artificial urgency</div>
-      <div class="principle">Longevity over scale</div>
-    </div>
+  <!-- Hamburger -->
+  <div class="hamburger" onclick="toggleMenu()">
+    <div></div>
+    <div></div>
+    <div></div>
   </div>
-</section>
 
-<section class="contact">
-  <div class="container">
+  <!-- Overlay -->
+  <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+  <!-- Side Menu -->
+  <aside class="side-menu" id="sideMenu"></aside>
+  
+<main class="content">
+  <header class="container">
+    <h1 class="brand">Hebu Media</h1>
+    <p class="tagline">
+      We build dependable software with restraint, clarity, and respect for the people who use it.
+    </p>
+  </header>
+
+  <section class="about">
+    <div class="container about-grid">
+      <div class="about-text">
+        <h2 class="heavy">How we work</h2>
+        <p>
+          Hebu Media is intentionally small. Independence gives us the freedom to design carefully,
+          maintain what we build, and avoid unnecessary complexity.
+        </p>
+        <p>
+          We focus on work that can be understood, trusted, and supported long-term.
+        </p>
+      </div>
+
+      <div class="principles">
+        <div class="principle">Built slowly and deliberately</div>
+        <div class="principle">Clear ownership and privacy</div>
+        <div class="principle">No artificial urgency</div>
+        <div class="principle">Longevity over scale</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact">
     <div class="contact-card">
       <h2 class="heavy">Get in touch</h2>
       <p>
@@ -296,12 +64,12 @@
       <form id="contactForm">
         <div class="field">
           <label>Name</label>
-          <input name="entry.NAME_ID" required />
+          <input name="entry.NAME_ID" required>
         </div>
 
         <div class="field">
           <label>Email</label>
-          <input type="email" name="entry.EMAIL_ID" required />
+          <input type="email" name="entry.EMAIL_ID" required>
         </div>
 
         <div class="field">
@@ -309,29 +77,35 @@
           <textarea name="entry.MESSAGE_ID" required></textarea>
         </div>
 
-        <button type="submit">Send message</button>
+        <div class="form-action">
+          <button type="submit" class="button">Send message</button>
+        </div>
+
         <div class="success" id="successMsg">Thank you — your message has been sent.</div>
       </form>
     </div>
-  </div>
-</section>
+  </section>
 
-<footer>
-  © 2026 Hebu Media LLC · info@hebumedia.com
-</footer>
+  <footer>
+    © 2026 Hebu Media LLC · <a href="mailto:info@hebumedia.com">info@hebumedia.com</a>
+  </footer>
+</main>
 
 <script>
+  // Load sidebar dynamically if needed
+  const sideMenu = document.getElementById('sideMenu');
+
   function toggleMenu() {
-    document.getElementById('sideMenu').classList.toggle('open');
+    sideMenu.classList.toggle('open');
     document.getElementById('overlay').classList.toggle('active');
   }
 
+  // Contact form submission
   const form = document.getElementById('contactForm');
   const success = document.getElementById('successMsg');
 
   form.addEventListener('submit', function(e) {
     e.preventDefault();
-
     fetch('https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse', {
       method: 'POST',
       mode: 'no-cors',

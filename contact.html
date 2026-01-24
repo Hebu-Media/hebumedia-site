@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Hebu Media</title>
+  
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+  <div class="layout">
+
+    <!-- Hamburger Menu -->
+    <div class="hamburger" onclick="toggleMenu()">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+
+    <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+    <!-- Sidebar -->
+    <aside class="side-menu" id="sideMenu"></aside>
+
+    <!-- Main Content -->
+    <main class="content">
+
+      <header class="container">
+        <h1 class="brand">Hebu Media</h1>
+        <p class="tagline">
+          Reach out to us with any questions about our work. We read every message.
+        </p>
+      </header>
+
+      <section class="contact">
+        <div class="contact-card">
+          <h2 class="heavy">Get in touch</h2>
+          <p>
+            If you have a question about our products, or want to reach out, use the form below.
+          </p>
+
+          <form id="contactForm">
+            <div class="field">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="entry.NAME_ID" required />
+            </div>
+
+            <div class="field">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="entry.EMAIL_ID" required />
+            </div>
+
+            <div class="field">
+              <label for="message">Message</label>
+              <textarea id="message" name="entry.MESSAGE_ID" required></textarea>
+            </div>
+
+            <div class="form-action">
+              <button type="submit" class="button">Send message</button>
+            </div>
+
+            <div class="success" id="successMsg">Thank you — your message has been sent.</div>
+          </form>
+        </div>
+      </section>
+
+      <footer>
+        © 2026 Hebu Media LLC ·
+        <a href="mailto:info@hebumedia.com">info@hebumedia.com</a>
+      </footer>
+
+    </main>
+  </div>
+
+  <script>
+    // Load shared sidebar
+    fetch('sidebar.html')
+      .then(r => r.text())
+      .then(html => {
+        document.getElementById('sideMenu').innerHTML = html;
+      })
+      .catch(err => console.error("Error loading sidebar:", err));
+
+    // Sidebar Toggle Logic
+    function toggleMenu() {
+      document.getElementById('sideMenu').classList.toggle('open');
+      document.getElementById('overlay').classList.toggle('active');
+    }
+
+    // Contact Form Submission
+    const form = document.getElementById('contactForm');
+    const success = document.getElementById('successMsg');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      fetch('https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse', {
+        method: 'POST',
+        mode: 'no-cors',
+        body: new FormData(form)
+      }).then(() => {
+        form.reset();
+        success.style.display = 'block';
+      });
+    });
+  </script>
+
+</body>
+</html>

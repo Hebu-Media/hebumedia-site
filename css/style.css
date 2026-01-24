@@ -9,6 +9,7 @@
 }
 
 * { box-sizing: border-box; }
+
 body {
   margin: 0;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -23,6 +24,7 @@ h1, h2, h3 { letter-spacing: -0.03em; }
 .container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
 section { padding: 80px 0; }
 
+/* Hamburger */
 .hamburger {
   position: fixed;
   top: 24px;
@@ -48,6 +50,7 @@ section { padding: 80px 0; }
   border-radius: 2px;
 }
 
+/* Overlay */
 .overlay {
   position: fixed;
   inset: 0;
@@ -64,141 +67,7 @@ section { padding: 80px 0; }
   pointer-events: all;
 }
 
-
-.side-menu {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 280px;
-  background: var(--paper);
-  border-right: 1px solid var(--border);
-  padding: 96px 32px;
-  transform: translateX(-110%);
-  transition: transform 0.3s ease;
-  z-index: 1000;
-}
-
-.side-menu.open {
-  transform: translateX(0);
-}
-
-.side-menu nav {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-.side-menu a {
-  text-decoration: none;
-  color: var(--ink);
-  font-weight: 700;
-  font-size: 1.1rem;
-}
-
-header {
-  padding: 96px 0 72px;
-}
-
-.brand {
-  font-size: 3.6rem;
-  font-weight: 900;
-  margin-bottom: 10px;
-}
-
-.tagline {
-  font-size: 1.3rem;
-  color: var(--muted);
-  max-width: 640px;
-}
-
-.header-actions {
-  margin-top: 36px;
-  margin-bottom: 56px;
-}
-
-.primary-btn {
-  background: var(--deep-sage);
-  color: #fff;
-  padding: 14px 34px;
-  border-radius: 999px;
-  text-decoration: none;
-  font-weight: 800;
-}
-
-.about {
-  background: var(--paper);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-}
-
-.about-grid {
-  display: grid;
-  grid-template-columns: 1.25fr 1fr;
-  gap: 48px;
-}
-
-.about p {
-  font-size: 1.08rem;
-  color: var(--muted);
-}
-
-.values {
-  display: grid;
-  gap: 14px;
-}
-
-.value {
-  padding: 18px 20px;
-  border-radius: 16px;
-  border: 1px solid var(--border);
-  background: var(--linen);
-  font-weight: 600;
-}
-
-.products h2 { margin-bottom: 40px; }
-
-.product-card {
-  background: var(--paper);
-  border: 1px solid var(--border);
-  border-radius: 26px;
-  padding: 40px;
-  max-width: 720px;
-}
-
-.product-label {
-  text-transform: uppercase;
-  font-size: 0.7rem;
-  letter-spacing: 1.8px;
-  font-weight: 800;
-  color: var(--deep-sage);
-}
-
-footer {
-  padding: 64px 0;
-  text-align: center;
-  font-size: 0.85rem;
-  color: var(--muted);
-}
-
-footer a {
-  color: var(--deep-sage);
-  text-decoration: none;
-  font-weight: 600;
-}
-
-@media (max-width: 800px) {
-  .about-grid { grid-template-columns: 1fr; }
-  .brand { font-size: 2.9rem; }
-}
-
-main.content {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 120px 24px 80px;
-}
-
-/* --- Side Menu polish (from 404) --- */
+/* Side Menu */
 .side-menu {
   position: fixed;
   top: 0;
@@ -237,4 +106,381 @@ main.content {
   transform: translateX(4px);
 }
 
+/* Header */
+header {
+  padding: 96px 0 72px;
+}
+
+.brand {
+  font-size: 3.6rem;
+  font-weight: 900;
+  margin-bottom: 10px;
+}
+
+.tagline {
+  font-size: 1.3rem;
+  color: var(--muted);
+  max-width: 640px;
+}
+
+.header-actions {
+  margin-top: 36px;
+  margin-bottom: 56px;
+}
+
+/* Unified Button Style */
+.button {
+  display: inline-block;
+  background: var(--deep-sage);
+  color: #fff;
+  padding: 14px 34px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 800;
+  transition: box-shadow 0.2s, transform 0.2s;
+  text-align: center;
+}
+
+.button:hover,
+.button:focus {
+  box-shadow: 0 14px 28px rgba(95,127,85,0.35);
+  transform: translateY(-2px);
+}
+
+/* --- About Section --- */
+.about {
+  background: var(--paper);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: 56px;
+  align-items: start;
+}
+
+.about p {
+  font-size: 1.08rem;
+  color: var(--muted);
+}
+
+/* Principles column */
+.principles {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-top: 0;
+}
+
+.principle {
+  padding: 18px 20px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: var(--paper);
+  font-weight: 600;
+  color: var(--ink);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  line-height: 1.5;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.principle:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.06);
+}
+
+/* Contact Card - Centered & Larger */
+.contact {
+  display: flex;
+  justify-content: center;
+  padding: 80px 24px;
+}
+
+.contact-card {
+  max-width: 720px;
+  width: 100%;
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  padding: 48px 36px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+}
+
+.contact-card h2 {
+  margin-bottom: 24px;
+}
+
+.contact-card p {
+  font-size: 1.05rem;
+  color: var(--muted);
+  margin-bottom: 32px;
+}
+
+/* Contact Form Inputs */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+input, textarea {
+  font-family: inherit;
+  font-size: 1rem;
+  padding: 16px 18px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--paper);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus, textarea:focus {
+  outline: none;
+  border-color: var(--deep-sage);
+  box-shadow: 0 0 0 3px rgba(95,127,85,0.15);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 140px;
+}
+
+/* Submit Button */
+button.button {
+  display: inline-block;
+  background: var(--deep-sage);
+  color: #fff;
+  padding: 14px 34px;
+  border-radius: 999px;
+  border: none;
+  font-weight: 800;
+  cursor: pointer;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+button.button:hover {
+  box-shadow: 0 12px 24px rgba(95,127,85,0.25);
+  transform: translateY(-2px);
+}
+
+/* Center the button */
+.form-action {
+  text-align: center;
+  margin-top: 24px;
+}
+
+/* Success message hidden by default */
+.success {
+  display: none;
+  margin-top: 20px;
+  color: var(--deep-sage);
+  font-weight: 600;
+}
+
+/* Footer */
+footer {
+  padding: 64px 0;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+footer a {
+  color: var(--deep-sage);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+/* 404 Page Styles */
+body.page-404 main.content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+  padding: 0 24px;
+}
+
+body.page-404 .not-found {
+  max-width: 520px;
+  text-align: center;
+  margin: 0 auto;
+}
+
+body.page-404 .not-found h1 {
+  font-size: 3.2rem;
+  font-weight: 900;
+  margin-bottom: 12px;
+}
+
+body.page-404 .not-found p {
+  color: var(--muted);
+  font-size: 1.1rem;
+  margin-bottom: 32px;
+  line-height: 1.6;
+}
+
+body.page-404 .actions {
+  margin-top: 24px;
+}
+
+/* Job card placeholder for no jobs */
+/* --- Job Card Styling --- */
+.job-card {
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  padding: 40px;
+  max-width: 720px;
+  margin: 32px auto; /* center horizontally */
+  box-shadow: 0 8px 28px rgba(0,0,0,0.06); /* subtle depth like contact card */
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.job-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+}
+
+.job-card h3 {
+  font-size: 1.6rem;
+  font-weight: 800;
+  margin-bottom: 12px;
+  color: var(--ink);
+}
+
+.job-card .meta {
+  font-size: 1rem;
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+
+.job-card p {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.job-card a.button {
+  display: inline-block;
+  margin-top: 20px;
+  background: var(--deep-sage);
+  color: #fff;
+  padding: 14px 32px;
+  border-radius: 999px;
+  font-weight: 800;
+  text-decoration: none;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.job-card a.button:hover {
+  box-shadow: 0 12px 24px rgba(95,127,85,0.25);
+  transform: translateY(-2px);
+}
+
+/* Placeholder-specific tweaks */
+.job-card.placeholder {
+  text-align: center;
+}
+
+/* --- Product Cards --- */
+.product-card {
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: 28px;          /* same rounding as contact-card */
+  padding: 40px 36px;           /* consistent padding */
+  max-width: 720px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05); /* subtle depth */
+  transition: transform 0.2s, box-shadow 0.2s;
+  margin-bottom: 32px;
+}
+
+.product-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px rgba(0,0,0,0.08);
+}
+
+.product-card h3 {
+  margin-top: 12px;
+  margin-bottom: 16px;
+  font-weight: 800;
+  color: var(--ink);
+}
+
+.product-card p {
+  font-size: 1rem;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.product-label {
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  letter-spacing: 1.8px;
+  font-weight: 800;
+  color: var(--deep-sage);
+}
+
+/* Product buttons */
+.product-actions {
+  margin-top: 12px;
+}
+
+.product-actions .button {
+  display: inline-block;
+  background: var(--deep-sage);
+  color: #fff;
+  padding: 14px 34px;
+  border-radius: 999px;
+  border: none;
+  font-weight: 800;
+  cursor: pointer;
+  transition: box-shadow 0.2s, transform 0.2s;
+  text-decoration: none;
+}
+
+.product-actions .button:hover {
+  box-shadow: 0 12px 24px rgba(95,127,85,0.25);
+  transform: translateY(-2px);
+}
+
+
+/* Responsive tweaks */
+@media (max-width: 800px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .principles {
+    margin-top: 36px;
+  }
+
+  .contact-card {
+    padding: 36px 24px;
+  }
+
+  .brand {
+    font-size: 2.9rem;
+  }
+
+  .product-card {
+    width: 100%;
+    padding: 36px 24px;   /* slightly smaller padding for small screens */
+    margin-left: auto;
+    margin-right: auto;    /* center it */
+    box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+  }
+
+  .product-actions {
+    text-align: center;    /* center the button under the text */
+  }
+}
 

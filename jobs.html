@@ -2,94 +2,99 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Jobs at Hebu Media</title>
   <link rel="stylesheet" href="css/style.css" />
 
   <!-- PapaParse for proper CSV handling -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 </head>
-<body>
+<body class="page-jobs">
 
- <div class="layout">
+<div class="layout">
 
-    <!-- Sidebar -->
-    <!-- Hamburger -->
-<div class="hamburger" onclick="toggleMenu()">
-  <div></div>
-  <div></div>
-  <div></div>
+  <!-- Hamburger -->
+  <div class="hamburger" onclick="toggleMenu()">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+
+  <!-- Overlay -->
+  <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+  <!-- Side Menu -->
+  <aside class="side-menu" id="sideMenu"></aside>
+
+  <!-- Main content -->
+  <main class="content">
+  <header class="container">
+    <h1 class="brand">Hebu Media</h1>
+  </header>
+    <section id="jobs-list">
+      <!-- Placeholder for when no jobs are available -->
+      <div class="job-card placeholder">
+        <h3>We’re growing thoughtfully</h3>
+        <p class="meta">No positions are open at the moment</p>
+        <p>
+  Hebu Media is intentionally small, but we’re always looking for talented people. 
+  If you’d like to be considered for future opportunities, reach out anytime.
+</p>
+<div class="placeholder-action">
+  <a class="button" href="mailto:info@hebumedia.com">Get in touch</a>
+</div>
+</div>
+    </section>
+  </main>
+
 </div>
 
-<!-- Overlay -->
-<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
-
-<!-- Side Menu -->
-<aside class="side-menu" id="sideMenu"></aside>
-
-
-    <!-- Main content -->
-    <main class="content">
-      <h1>Jobs at Hebu Media</h1>
-      <p class="subtle">We’re small right now, but growing thoughtfully.</p>
-
-      <section id="jobs-list">
-        <p>Loading jobs…</p>
-      </section>
-    </main>
-
-  </div>
-  
-  <script>
-    /* Load sidebar */
+<script>
+  // Load sidebar dynamically
   fetch('sidebar.html')
     .then(r => r.text())
     .then(html => {
       document.getElementById('sideMenu').innerHTML = html;
     });
 
+  // Toggle menu function
   function toggleMenu() {
     document.getElementById('sideMenu').classList.toggle('open');
     document.getElementById('overlay').classList.toggle('active');
   }
 
+  // Load jobs from Google Sheets CSV
+  const csvUrl =
+    'https://docs.google.com/spreadsheets/d/e/2PACX-1vTT-fr3hRKQJkI_uKf2BTzdkA8xBEw8AUA7yc3MDwvjpdrhk3FVPeJvY3Ag0gPwEVN_vVl8lzvbcCos/pub?gid=0&single=true&output=csv';
 
+  Papa.parse(csvUrl, {
+    download: true,
+    header: true,
+    skipEmptyLines: true,
+    complete: function (results) {
+      const jobs = results.data.filter(job => job.Title);
+      const container = document.getElementById('jobs-list');
 
-    /* Google Sheets CSV */
-    const csvUrl =
-      'https://docs.google.com/spreadsheets/d/e/2PACX-1vTT-fr3hRKQJkI_uKf2BTzdkA8xBEw8AUA7yc3MDwvjpdrhk3FVPeJvY3Ag0gPwEVN_vVl8lzvbcCos/pub?gid=0&single=true&output=csv';
+      if (!jobs.length) return; // Keep placeholder visible
 
-    Papa.parse(csvUrl, {
-      download: true,
-      header: true,
-      skipEmptyLines: true,
-      complete: function (results) {
-        const jobs = results.data.filter(job => job.Title);
-        const container = document.getElementById('jobs-list');
-
-        if (!jobs.length) {
-          container.innerHTML =
-            '<p>No jobs available at this time.</p>';
-          return;
-        }
-
-        container.innerHTML = jobs.map(job => `
-          <article class="job-card">
-            <h3>${job.Title}</h3>
-            ${job.Location ? `<p class="meta">${job.Location}</p>` : ''}
-            ${job.Description ? `<p>${job.Description}</p>` : ''}
-            ${job['Apply Link']
-              ? `<a class="button" href="${job['Apply Link']}" target="_blank">Apply</a>`
-              : ''}
-          </article>
-        `).join('');
-      },
-      error: function (err) {
-        console.error(err);
-        document.getElementById('jobs-list').innerHTML =
-          '<p>Error loading jobs.</p>';
-      }
-    });
-  </script>
+      // Replace placeholder with real jobs
+      container.innerHTML = jobs.map(job => `
+        <article class="job-card">
+          <h3>${job.Title}</h3>
+          ${job.Location ? `<p class="meta">${job.Location}</p>` : ''}
+          ${job.Description ? `<p>${job.Description}</p>` : ''}
+          ${job['Apply Link']
+            ? `<a class="button" href="${job['Apply Link']}" target="_blank">Apply</a>`
+            : ''}
+        </article>
+      `).join('');
+    },
+    error: function (err) {
+      console.error(err);
+      // Keep placeholder visible on error
+    }
+  });
+</script>
 
 </body>
 </html>

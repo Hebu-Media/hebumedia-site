@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hebu Media — Independent Software Company</title>
+  <title>Products — Hebu Media</title>
   
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -13,64 +13,32 @@
 
   <div class="layout">
 
-    <!-- Hamburger menu -->
+    <!-- Hamburger Menu -->
     <div class="hamburger" onclick="toggleMenu()">
       <div></div>
       <div></div>
       <div></div>
     </div>
 
-    <!-- Overlay -->
     <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
     <!-- Sidebar -->
     <aside class="side-menu" id="sideMenu"></aside>
 
-    <!-- Main content -->
+    <!-- Main Content -->
     <main class="content">
-      
-      <!-- Hero / Header -->
+
       <header class="container">
         <h1 class="brand">Hebu Media</h1>
         <p class="tagline">
-          An independent software company creating and maintaining its own products with care, clarity, and long-term intent.
+          Our independent software products are built with care, clarity, and long-term support in mind.
         </p>
-        <div class="header-actions">
-          <a href="#products" class="button">Our Products</a>
-        </div>
       </header>
 
-      <!-- About / Values Section -->
-      <section id="about" class="about">
-        <div class="container about-grid">
-          <div>
-            <h2 class="heavy">Built with care, meant to last</h2>
-            <p>
-              Hebu Media is an independent software company focused on building and maintaining its own products.
-              All software is designed, developed, and supported in-house.
-            </p>
-            <p>
-              We value clarity over cleverness, honesty over hype, and long-term usefulness over rapid iteration for its own sake.
-            </p>
-            <p>
-              <strong>Hebu Media does not offer client services and is not seeking development partners, agencies, or outsourced engineering support.</strong>
-            </p>
-          </div>
-
-          <div class="principles">
-            <div class="principle">People come first</div>
-            <div class="principle">Clarity over cleverness</div>
-            <div class="principle">Respect for privacy and ownership</div>
-            <div class="principle">Built and maintained in-house</div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Products Section -->
       <section id="products" class="products">
         <div class="container">
-          <h2 class="heavy">Our products</h2>
-          
+          <h2 class="heavy">Our Products</h2>
+
           <div class="product-card">
             <span class="product-label">First product</span>
             <h3 class="heavy">Plotlines</h3>
@@ -82,10 +50,10 @@
             </div>
           </div>
 
+          <!-- Future products can be added here -->
         </div>
       </section>
 
-      <!-- Footer -->
       <footer>
         © 2026 Hebu Media LLC ·
         <a href="mailto:info@hebumedia.com">info@hebumedia.com</a>
@@ -103,7 +71,7 @@
       })
       .catch(err => console.error("Error loading sidebar:", err));
 
-    // Toggle sidebar menu
+    // Sidebar Toggle Logic
     function toggleMenu() {
       document.getElementById('sideMenu').classList.toggle('open');
       document.getElementById('overlay').classList.toggle('active');
